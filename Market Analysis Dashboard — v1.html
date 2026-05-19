@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/John/Downloads/index_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Analysis Dashboard — v1</title>
+<link href="./Market Analysis Dashboard — v1_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --rmkr-blue: #2E2ACE;
+    --rmkr-blue-deep: #1f1b9c;
+    --rmkr-cyan: #11E8F2;
+    --rmkr-pale: #CCDBFF;
+    --rmkr-pale-soft: rgba(204, 219, 255, 0.08);
+    --rmkr-pale-card: rgba(204, 219, 255, 0.12);
+    --rmkr-white: #FFFFFF;
+    --rmkr-muted: rgba(204, 219, 255, 0.55);
+    --rmkr-border: rgba(17, 232, 242, 0.25);
+    --rmkr-border-soft: rgba(204, 219, 255, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--rmkr-blue);
+    color: var(--rmkr-white);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(17,232,242,0.06) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(17,232,242,0.04) 0%, transparent 40%);
+  }
+
+  .wrap {
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 32px 40px 80px;
+  }
+
+  /* ============ TOP NAV / PROJECT HEADER ============ */
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rmkr-border-soft);
+    margin-bottom: 32px;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .brand-logo .cyan { color: var(--rmkr-cyan); }
+  .brand-logo .white { color: var(--rmkr-white); }
+  .brand-logo .bracket {
+    display: inline-block;
+    margin-left: 4px;
+    color: var(--rmkr-cyan);
+    font-size: 14px;
+    transform: translateY(-6px);
+  }
+
+  .project-meta {
+    flex: 1;
+    padding-left: 48px;
+  }
+  .project-meta .label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .project-meta h1 {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .project-meta .tagline {
+    color: var(--rmkr-pale);
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .project-status {
+    text-align: right;
+  }
+  .project-status .label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .project-status .value {
+    font-size: 14px;
+    color: var(--rmkr-pale);
+  }
+
+  /* ============ AGGREGATE STATS STRIP ============ */
+  .agg-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    padding: 22px 24px;
+    background: linear-gradient(135deg, var(--rmkr-pale-card) 0%, rgba(17,232,242,0.04) 100%);
+    border: 1px solid var(--rmkr-border);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .agg-strip::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid var(--rmkr-cyan);
+    border-right: 2px solid var(--rmkr-cyan);
+  }
+  .agg-strip::after {
+    content: 'ALL SEGMENTS · AGGREGATE';
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--rmkr-cyan);
+  }
+  .agg-stat {
+    text-align: left;
+    padding-top: 24px;
+    padding-right: 12px;
+    border-right: 1px solid var(--rmkr-border-soft);
+  }
+  .agg-stat:last-child { border-right: none; }
+  .agg-stat .num {
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--rmkr-white);
+  }
+  .agg-stat .num.accent { color: var(--rmkr-cyan); }
+  .agg-stat .lbl {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--rmkr-muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .agg-stat .sub {
+    font-size: 10px;
+    color: var(--rmkr-pale);
+    margin-top: 3px;
+    font-weight: 300;
+  }
+
+  /* ============ SEGMENT HEADER ROW ============ */
+  .segments-row {
+    display: grid;
+    grid-template-columns: 160px repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .segments-row .row-label-cell {
+    /* empty for header row */
+  }
+
+  .segment-card {
+    background: var(--rmkr-pale-card);
+    border: 1px solid var(--rmkr-border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .segment-card::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 14px;
+    height: 14px;
+    border-top: 2px solid var(--rmkr-cyan);
+    border-right: 2px solid var(--rmkr-cyan);
+  }
+  .segment-card .seg-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .segment-card .seg-name {
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .seg-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rmkr-border-soft);
+  }
+  .seg-kpi { }
+  .seg-kpi .num {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--rmkr-white);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .seg-kpi .num.accent { color: var(--rmkr-cyan); }
+  .seg-kpi .lbl {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--rmkr-muted);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* ============ DATA ROWS ============ */
+  .data-row {
+    display: grid;
+    grid-template-columns: 160px repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .row-label {
+    background: transparent;
+    padding: 20px 4px 0 0;
+    border-right: 1px solid var(--rmkr-border-soft);
+  }
+  .row-label .row-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 38px;
+    color: var(--rmkr-cyan);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .row-label .row-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--rmkr-white);
+    margin-top: 6px;
+    line-height: 1.2;
+  }
+  .row-label .row-desc {
+    font-size: 11px;
+    color: var(--rmkr-muted);
+    font-weight: 300;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .cell {
+    background: var(--rmkr-pale-soft);
+    border: 1px solid var(--rmkr-border-soft);
+    border-radius: 10px;
+    padding: 18px 20px;
+    min-height: 140px;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .cell:hover {
+    border-color: var(--rmkr-border);
+    background: var(--rmkr-pale-card);
+  }
+
+  .cell-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rmkr-muted);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    min-height: 140px;
+  }
+  .cell-empty::before {
+    content: '◊';
+    margin-right: 8px;
+    color: var(--rmkr-cyan);
+    opacity: 0.4;
+  }
+
+  /* ============ CROSS-SEGMENT VERDICT ROW (full width) ============ */
+  .verdict-row {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+  }
+  .verdict-cell {
+    background: var(--rmkr-pale-card);
+    border: 1px solid var(--rmkr-border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    min-height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .verdict-cell::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 18px;
+    height: 18px;
+    border-top: 2px solid var(--rmkr-cyan);
+    border-right: 2px solid var(--rmkr-cyan);
+  }
+
+  /* ============ HELPER PILL ============ */
+  .placeholder-hint {
+    margin-top: 12px;
+    padding: 14px 16px;
+    background: rgba(17, 232, 242, 0.05);
+    border-left: 2px solid var(--rmkr-cyan);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--rmkr-pale);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .placeholder-hint strong {
+    color: var(--rmkr-cyan);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  /* ============ FULL-WIDTH SEGMENT BREAKOUT BLOCKS ============ */
+  .breakout-divider {
+    margin-top: 56px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .breakout-divider .line {
+    flex: 1;
+    height: 1px;
+    background: var(--rmkr-border-soft);
+  }
+  .breakout-divider .label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+  }
+
+  .segment-block {
+    background: var(--rmkr-pale-soft);
+    border: 1px solid var(--rmkr-border-soft);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .segment-block::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 18px;
+    height: 18px;
+    border-top: 2px solid var(--rmkr-cyan);
+    border-right: 2px solid var(--rmkr-cyan);
+  }
+
+  .segment-block-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rmkr-border-soft);
+    margin-bottom: 24px;
+  }
+  .segment-block-header .num-badge {
+    font-weight: 800;
+    font-size: 52px;
+    color: var(--rmkr-cyan);
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    opacity: 0.85;
+  }
+  .segment-block-header .seg-info { flex: 1; }
+  .segment-block-header .tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .segment-block-header h2 {
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    color: var(--rmkr-white);
+  }
+  .segment-block-header .header-kpis {
+    display: flex;
+    gap: 28px;
+    padding-left: 24px;
+    border-left: 1px solid var(--rmkr-border-soft);
+  }
+  .header-kpi { text-align: right; }
+  .header-kpi .v {
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--rmkr-white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .header-kpi .v.accent { color: var(--rmkr-cyan); }
+  .header-kpi .l {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--rmkr-muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* internal 3-2-2-1 grid */
+  .breakout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .breakout-row { display: contents; }
+  .b-cell {
+    background: rgba(204, 219, 255, 0.04);
+    border: 1px solid var(--rmkr-border-soft);
+    border-radius: 10px;
+    padding: 18px 20px;
+    min-height: 160px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .b-cell:hover {
+    border-color: var(--rmkr-border);
+    background: rgba(204, 219, 255, 0.08);
+  }
+  .b-cell .b-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .b-cell .b-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--rmkr-white);
+    margin-bottom: 6px;
+  }
+  .b-cell .b-desc {
+    font-size: 10px;
+    color: var(--rmkr-muted);
+    line-height: 1.4;
+    font-weight: 300;
+    margin-bottom: 14px;
+  }
+  .b-cell-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rmkr-muted);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    min-height: 70px;
+  }
+  .b-cell-empty::before {
+    content: '◊';
+    margin-right: 8px;
+    color: var(--rmkr-cyan);
+    opacity: 0.4;
+  }
+
+  /* span helpers */
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+
+  /* read-through bar */
+  .read-through {
+    margin-top: 16px;
+    padding: 18px 22px;
+    background: linear-gradient(90deg, rgba(17,232,242,0.08) 0%, rgba(17,232,242,0.02) 100%);
+    border: 1px solid var(--rmkr-border);
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .read-through .rt-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+  .read-through .rt-body {
+    font-size: 13px;
+    color: var(--rmkr-pale);
+    line-height: 1.5;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  /* ============ POPULATED CELL CONTENT COMPONENTS ============ */
+  .cell-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    margin-top: 8px;
+  }
+  .cell-stat .v {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--rmkr-white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .cell-stat .v.accent { color: var(--rmkr-cyan); }
+  .cell-stat .l {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--rmkr-muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Stacked horizontal bar: Core / Wedge / Avoid */
+  .bucket-bar {
+    margin-top: 12px;
+    display: flex;
+    height: 28px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--rmkr-border-soft);
+  }
+  .bucket-bar .seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--rmkr-white);
+    letter-spacing: 0.06em;
+  }
+  .bucket-bar .seg.core { background: var(--rmkr-cyan); color: var(--rmkr-blue); }
+  .bucket-bar .seg.wedge { background: rgba(204,219,255,0.45); color: var(--rmkr-blue); }
+  .bucket-bar .seg.avoid { background: rgba(204,219,255,0.18); color: var(--rmkr-pale); }
+
+  .bucket-legend {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 10px;
+    color: var(--rmkr-pale);
+    flex-wrap: wrap;
+  }
+  .bucket-legend .leg-item { display: flex; align-items: center; gap: 6px; }
+  .bucket-legend .leg-dot { width: 8px; height: 8px; border-radius: 2px; }
+  .bucket-legend .leg-dot.core { background: var(--rmkr-cyan); }
+  .bucket-legend .leg-dot.wedge { background: rgba(204,219,255,0.45); }
+  .bucket-legend .leg-dot.avoid { background: rgba(204,219,255,0.18); border: 1px solid var(--rmkr-border-soft); }
+
+  /* KW chips */
+  .kw-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kw-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    padding: 5px 8px;
+    background: rgba(204,219,255,0.05);
+    border-radius: 4px;
+    border-left: 2px solid var(--rmkr-border);
+  }
+  .kw-row .kw {
+    color: var(--rmkr-white);
+    font-weight: 400;
+  }
+  .kw-row .sv {
+    color: var(--rmkr-cyan);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Trend score display */
+  .trend-display {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .trend-display .big {
+    font-weight: 800;
+    font-size: 48px;
+    color: var(--rmkr-cyan);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .trend-display .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .trend-display .descriptor {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--rmkr-white);
+    letter-spacing: 0.04em;
+  }
+  .trend-display .sublabel {
+    font-size: 9px;
+    color: var(--rmkr-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  /* Sparkline SVG container */
+  .sparkline { width: 100%; height: 50px; margin-top: 8px; }
+  .kw-trend-row { margin-bottom: 14px; }
+  .kw-trend-row:last-child { margin-bottom: 0; }
+  .kw-trend-row .kw-trend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 11px;
+  }
+  .kw-trend-row .kw-name {
+    color: var(--rmkr-white);
+    font-weight: 500;
+  }
+  .kw-trend-row .kw-delta {
+    color: var(--rmkr-cyan);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  .kw-trend-row .kw-delta.neg { color: rgba(204,219,255,0.5); }
+
+  /* Top 5 competitor table */
+  .comp-table { margin-top: 8px; width: 100%; border-collapse: collapse; font-size: 11px; }
+  .comp-table th {
+    text-align: left;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--rmkr-muted);
+    text-transform: uppercase;
+    padding: 6px 6px;
+    border-bottom: 1px solid var(--rmkr-border-soft);
+  }
+  .comp-table th.right, .comp-table td.right { text-align: right; }
+  .comp-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(204,219,255,0.06);
+    color: var(--rmkr-pale);
+  }
+  .comp-table td.brand {
+    font-weight: 600;
+    color: var(--rmkr-white);
+  }
+  .comp-table td .accent { color: var(--rmkr-cyan); }
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  /* Value-curve mini bars */
+  .vc-bars { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .vc-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 50px;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+  }
+  .vc-row .vc-label { color: var(--rmkr-pale); font-weight: 500; }
+  .vc-row .vc-bar-wrap { background: rgba(204,219,255,0.06); border-radius: 3px; height: 14px; overflow: hidden; }
+  .vc-row .vc-bar { background: linear-gradient(90deg, var(--rmkr-cyan), rgba(17,232,242,0.5)); height: 100%; }
+  .vc-row .vc-val { color: var(--rmkr-cyan); font-weight: 600; font-size: 10px; text-align: right; }
+  .vc-callout {
+    margin-top: 10px;
+    padding: 6px 10px;
+    background: rgba(17,232,242,0.08);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--rmkr-white);
+  }
+  .vc-callout strong { color: var(--rmkr-cyan); }
+
+  /* Cohort breakdown stacked dual */
+  .cohort-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  .cohort-block .ch-title {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .cohort-rows { display: flex; flex-direction: column; gap: 4px; }
+  .cohort-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 40px;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+  }
+  .cohort-row .lbl { color: var(--rmkr-pale); font-weight: 500; }
+  .cohort-row .bar-wrap { background: rgba(204,219,255,0.06); height: 10px; border-radius: 2px; overflow: hidden; }
+  .cohort-row .bar { background: var(--rmkr-cyan); opacity: 0.7; height: 100%; }
+  .cohort-row .pct { text-align: right; color: var(--rmkr-white); font-weight: 600; }
+
+  /* sentiment theme list */
+  .sentiment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; margin-top: 10px; }
+  .sentiment-block .sb-title {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .theme-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; padding: 4px 0; border-bottom: 1px solid rgba(204,219,255,0.06); }
+  .theme-row:last-child { border-bottom: none; }
+  .theme-row .theme { color: var(--rmkr-pale); }
+  .theme-row .pct { color: var(--rmkr-white); font-weight: 600; }
+  .theme-row .pct.alert { color: var(--rmkr-cyan); }
+
+  /* Innovation signal block */
+  .innov-tags { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .innov-tag {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 10px;
+    background: rgba(204,219,255,0.04);
+    border-radius: 4px;
+    border-left: 2px solid var(--rmkr-cyan);
+  }
+  .innov-tag.risk {
+    border-left-color: rgba(204,219,255,0.4);
+    background: rgba(204,219,255,0.03);
+  }
+  .innov-tag .it-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--rmkr-cyan);
+    text-transform: uppercase;
+  }
+  .innov-tag.risk .it-label { color: var(--rmkr-pale); opacity: 0.7; }
+  .innov-tag .it-body { font-size: 11px; color: var(--rmkr-white); line-height: 1.4; }
+
+  /* footer */
+  .foot {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rmkr-border-soft);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--rmkr-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================
+       PROJECT HEADER
+       ============================================ -->
+  <div class="project-header">
+    <div class="brand-mark">
+      <div class="brand-logo">
+        <span class="cyan">RAIN</span><span class="white">MKR</span><span class="bracket">┐</span>
+      </div>
+    </div>
+    <div class="project-meta">
+      <div class="label">Market Analysis · Phase II Canvas</div>
+      <h1>Women's Health Supplement Market</h1>
+      <div class="tagline">Menopause + GLP-1 weight loss · 3-segment competitive deep dive</div>
+    </div>
+    <div class="project-status">
+      <div class="label">Status</div>
+      <div class="value">Phase II · Populated</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       AGGREGATE STATS STRIP (all segments rolled up)
+       ============================================ -->
+  <div class="agg-strip">
+    <div class="agg-stat"><div class="num accent">$275.9M</div><div class="lbl">Total TAM</div><div class="sub">Annualized</div></div>
+    <div class="agg-stat"><div class="num">2.11M</div><div class="lbl">Total Search Volume</div><div class="sub">Monthly</div></div>
+    <div class="agg-stat"><div class="num">6.9</div><div class="lbl">Avg Trend Score</div><div class="sub">SV momentum, 1–10</div></div>
+    <div class="agg-stat"><div class="num">984</div><div class="lbl">Median Reviews</div><div class="sub">Across segments</div></div>
+    <div class="agg-stat"><div class="num">63.2%</div><div class="lbl">Review Wall</div><div class="sub">Rev behind 5k+ reviews</div></div>
+    <div class="agg-stat"><div class="num accent">19.8%</div><div class="lbl">New-Launch Rev</div><div class="sub">% rev from 2024+ launches</div></div>
+  </div>
+
+  <!-- ============================================
+       ROW: SEGMENT HEADERS (KPI strip per segment)
+       ============================================ -->
+  <div class="segments-row">
+    <div class="row-label-cell"></div>
+
+    <div class="segment-card">
+      <div class="seg-tag">Segment 01</div>
+      <div class="seg-name">Menopause Weight Loss</div>
+      <div class="seg-kpi-grid">
+        <div class="seg-kpi"><div class="num accent">$6.7M</div><div class="lbl">TAM</div></div>
+        <div class="seg-kpi"><div class="num">116k</div><div class="lbl">Monthly SV</div></div>
+        <div class="seg-kpi"><div class="num">95.4%</div><div class="lbl">Top 5 Share</div></div>
+        <div class="seg-kpi"><div class="num accent">6.7</div><div class="lbl">Trend Score</div></div>
+      </div>
+    </div>
+
+    <div class="segment-card">
+      <div class="seg-tag">Segment 02</div>
+      <div class="seg-name">Menopause Support</div>
+      <div class="seg-kpi-grid">
+        <div class="seg-kpi"><div class="num accent">$233M</div><div class="lbl">TAM</div></div>
+        <div class="seg-kpi"><div class="num">224k</div><div class="lbl">Monthly SV</div></div>
+        <div class="seg-kpi"><div class="num">66.2%</div><div class="lbl">Top 5 Share</div></div>
+        <div class="seg-kpi"><div class="num accent">7.0</div><div class="lbl">Trend Score</div></div>
+      </div>
+    </div>
+
+    <div class="segment-card">
+      <div class="seg-tag">Segment 03</div>
+      <div class="seg-name">GLP-1 Weight Loss</div>
+      <div class="seg-kpi-grid">
+        <div class="seg-kpi"><div class="num accent">$36.2M</div><div class="lbl">TAM</div></div>
+        <div class="seg-kpi"><div class="num">1.77M</div><div class="lbl">Monthly SV</div></div>
+        <div class="seg-kpi"><div class="num">89.3%</div><div class="lbl">Top 5 Share</div></div>
+        <div class="seg-kpi"><div class="num accent">7.0</div><div class="lbl">Trend Score</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       DIVIDER — entering full-width segment breakouts
+       ============================================ -->
+  <div class="breakout-divider">
+    <div class="line"></div>
+    <div class="label">Segment Deep Dives</div>
+    <div class="line"></div>
+  </div>
+
+    <!-- ============================================
+       SEGMENT 01 — Menopause Weight Loss
+       ============================================ -->
+  <div class="segment-block">
+    <div class="segment-block-header">
+      <div class="num-badge">01</div>
+      <div class="seg-info">
+        <div class="tag">Segment 01</div>
+        <h2>Menopause Weight Loss</h2>
+      </div>
+      <div class="header-kpis">
+        <div class="header-kpi"><div class="v accent">$6.7M</div><div class="l">TAM</div></div>
+        <div class="header-kpi"><div class="v">116k</div><div class="l">Monthly SV</div></div>
+        <div class="header-kpi"><div class="v accent">6.7</div><div class="l">Trend Score</div></div>
+        <div class="header-kpi"><div class="v">95.4%</div><div class="l">Top 5 Share</div></div>
+        <div class="header-kpi"><div class="v">190</div><div class="l">Median Reviews</div></div>
+      </div>
+    </div>
+
+    <div class="breakout-grid">
+      <!-- A · Market Dynamics -->
+      <div class="b-cell">
+        <div class="b-tag">A · Market Dynamics</div>
+        <div class="b-title">Demand &amp; Cost Mechanics</div>
+        <div class="b-desc">Rev/search · branded % · CPC band</div>
+        <div class="cell-stats">
+          <div class="cell-stat"><div class="v accent">$4.83</div><div class="l">Rev / Search</div></div>
+          <div class="cell-stat"><div class="v">62%</div><div class="l">Branded SV Share</div></div>
+          <div class="cell-stat"><div class="v">$2.02</div><div class="l">SV-Wt CPC</div></div>
+          <div class="cell-stat"><div class="v">$1.99</div><div class="l">Median Bid</div></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">
+          Small TAM, brand-locked SV. After stripping brand terms, only ~44k unbranded SV remains.
+        </div>
+      </div>
+
+      <!-- B · Semantic Core -->
+      <div class="b-cell">
+        <div class="b-tag">B · Semantic Core</div>
+        <div class="b-title">Core / Wedge / Avoid Map</div>
+        <div class="b-desc">3-bucket KW split with % SV by intent zone</div>
+        <div class="bucket-bar">
+          <div class="seg core" style="width:31.4%">31%</div>
+          <div class="seg wedge" style="width:6.4%"></div>
+          <div class="seg avoid" style="width:62.2%">62%</div>
+        </div>
+        <div class="bucket-legend">
+          <div class="leg-item"><div class="leg-dot core"></div>Core 31.4%</div>
+          <div class="leg-item"><div class="leg-dot wedge"></div>Wedge 6.4%</div>
+          <div class="leg-item"><div class="leg-dot avoid"></div>Avoid 62.2%</div>
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">
+          Avoid dominated by brand conquest ("meno chill," "gleefull," "estroven") + Spanish-language fragmentation. Wedge is HRT, gut, perimenopause bloat.
+        </div>
+      </div>
+
+      <!-- C · Search Trends -->
+      <div class="b-cell">
+        <div class="b-tag">C · Search Trends</div>
+        <div class="b-title">Top 3 KW Trajectories</div>
+        <div class="b-desc">Weekly SV, full date range</div>
+        <div style="margin-top:10px;">
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">menopause weight loss for women</span>
+              <span class="kw-delta neg">-5%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,26.2 0.8,24.8 1.6,27.1 2.3,24.3 3.1,25.3 3.9,26.3 4.7,25.8 5.5,26.8 6.2,27.9 7.0,26.5 7.8,27.2 8.6,28.7 9.4,26.2 10.2,27.1 10.9,29.4 11.7,31.2 12.5,30.8 13.3,30.2 14.1,30.9 14.8,31.7 15.6,30.2 16.4,31.1 17.2,30.5 18.0,33.1 18.8,32.8 19.5,33.4 20.3,33.9 21.1,34.3 21.9,34.7 22.7,34.1 23.4,33.2 24.2,35.7 25.0,35.4 25.8,35.2 26.6,35.2 27.3,33.9 28.1,33.8 28.9,32.6 29.7,34.0 30.5,31.6 31.2,30.8 32.0,31.4 32.8,30.9 33.6,29.5 34.4,29.7 35.2,29.4 35.9,30.7 36.7,30.6 37.5,30.7 38.3,29.0 39.1,29.8 39.8,26.6 40.6,24.1 41.4,26.3 42.2,24.2 43.0,25.9 43.8,24.5 44.5,24.0 45.3,19.4 46.1,20.4 46.9,22.8 47.7,21.7 48.4,23.6 49.2,22.4 50.0,21.5 50.8,21.8 51.6,22.0 52.3,20.5 53.1,21.3 53.9,22.0 54.7,25.2 55.5,27.2 56.2,25.9 57.0,26.1 57.8,26.7 58.6,28.3 59.4,26.8 60.2,28.5 60.9,30.5 61.7,32.2 62.5,30.3 63.3,29.7 64.1,31.5 64.8,30.6 65.6,28.7 66.4,28.2 67.2,28.2 68.0,27.5 68.8,27.4 69.5,25.8 70.3,25.0 71.1,22.4 71.9,22.5 72.7,25.1 73.4,25.6 74.2,25.7 75.0,25.2 75.8,20.9 76.6,21.0 77.3,22.4 78.1,13.7 78.9,0.6 79.7,0.0 80.5,11.1 81.2,16.1 82.0,16.1 82.8,13.7 83.6,15.0 84.4,14.6 85.2,13.3 85.9,8.5 86.7,18.1 87.5,16.9 88.3,16.3 89.1,14.4 89.8,14.9 90.6,15.6 91.4,16.5 92.2,16.1 93.0,15.4 93.8,16.5 94.5,24.2 95.3,39.4 96.1,38.3 96.9,36.8 97.7,35.4 98.4,32.9 99.2,33.5 100.0,34.5 100.8,35.5 101.6,34.4 102.3,34.8 103.1,34.6 103.9,35.8 104.7,40.0 105.5,32.6 106.2,31.2 107.0,31.0 107.8,29.2 108.6,27.9 109.4,26.2 110.2,25.5 110.9,24.5 111.7,20.3 112.5,20.6 113.3,21.7 114.1,25.2 114.8,22.7 115.6,20.4 116.4,20.1 117.2,21.2 118.0,20.3 118.8,20.8 119.5,24.9 120.3,24.9 121.1,24.9 121.9,23.3 122.7,22.4 123.4,20.6 124.2,20.7 125.0,22.4 125.8,21.5 126.6,21.8 127.3,25.4 128.1,23.8 128.9,23.7 129.7,23.3 130.5,22.5 131.2,23.0 132.0,21.2 132.8,22.8 133.6,21.2 134.4,21.5 135.2,25.7 135.9,25.4 136.7,19.9 137.5,23.0 138.3,26.1 139.1,25.9 139.8,25.4 140.6,26.1 141.4,28.7 142.2,29.6 143.0,29.5 143.8,32.0 144.5,32.7 145.3,34.3 146.1,32.1 146.9,31.9 147.7,31.7 148.4,31.0 149.2,30.9 150.0,30.6 150.8,28.2 151.6,27.4 152.3,24.9 153.1,24.9 153.9,25.4 154.7,23.5 155.5,20.6 156.2,23.0 157.0,27.3 157.8,27.1 158.6,25.5 159.4,23.3 160.2,23.4 160.9,22.1 161.7,23.8 162.5,26.2 163.3,25.4 164.1,23.3 164.8,23.5 165.6,24.5 166.4,26.7 167.2,18.1 168.0,26.9 168.8,27.7 169.5,29.4 170.3,30.5 171.1,28.6 171.9,27.8 172.7,29.9 173.4,31.2 174.2,31.1 175.0,33.3 175.8,34.8 176.6,35.5 177.3,34.9 178.1,36.0 178.9,36.5 179.7,36.4 180.5,36.7 181.2,36.5 182.0,36.1 182.8,37.4 183.6,37.2 184.4,35.9 185.2,36.6 185.9,36.3 186.7,35.9 187.5,35.5 188.3,36.5 189.1,36.1 189.8,35.4 190.6,35.2 191.4,34.3 192.2,34.1 193.0,33.4 193.8,32.2 194.5,32.3 195.3,32.9 196.1,33.8 196.9,33.4 197.7,32.9 198.4,34.9 199.2,33.1 200.0,33.7" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">hrt supplement for women menopause</span>
+              <span class="kw-delta ">+42%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,40.0 1.7,39.7 3.4,39.6 5.1,36.7 6.8,37.0 8.5,36.8 10.2,36.0 11.9,36.0 13.6,35.7 15.3,34.7 16.9,35.4 18.6,30.0 20.3,29.6 22.0,29.8 23.7,33.5 25.4,26.8 27.1,32.8 28.8,29.3 30.5,29.8 32.2,32.6 33.9,27.3 35.6,26.2 37.3,27.3 39.0,29.7 40.7,28.4 42.4,35.1 44.1,27.6 45.8,33.5 47.5,27.1 49.2,26.2 50.8,28.4 52.5,27.9 54.2,26.7 55.9,27.1 57.6,28.1 59.3,30.0 61.0,29.8 62.7,29.9 64.4,29.5 66.1,27.3 67.8,28.6 69.5,33.3 71.2,33.2 72.9,31.5 74.6,30.9 76.3,30.4 78.0,28.4 79.7,32.8 81.4,32.1 83.1,29.7 84.7,28.1 86.4,28.9 88.1,27.2 89.8,27.1 91.5,26.5 93.2,24.5 94.9,27.4 96.6,26.5 98.3,26.5 100.0,21.7 101.7,24.1 103.4,19.6 105.1,0.0 106.8,17.3 108.5,23.7 110.2,23.2 111.9,20.7 113.6,19.4 115.3,21.5 116.9,21.5 118.6,21.9 120.3,14.7 122.0,24.1 123.7,21.2 125.4,21.1 127.1,22.8 128.8,19.7 130.5,24.0 132.2,22.4 133.9,22.8 135.6,22.0 137.3,24.1 139.0,20.8 140.7,21.6 142.4,25.1 144.1,25.0 145.8,23.4 147.5,25.9 149.2,27.7 150.8,22.5 152.5,25.8 154.2,25.8 155.9,27.6 157.6,30.5 159.3,20.8 161.0,26.9 162.7,26.9 164.4,25.9 166.1,25.3 167.8,26.2 169.5,20.7 171.2,11.8 172.9,19.9 174.6,22.0 176.3,19.9 178.0,19.1 179.7,21.7 181.4,19.4 183.1,18.6 184.7,18.2 186.4,17.1 188.1,12.6 189.8,7.8 191.5,6.7 193.2,4.2 194.9,7.8 196.6,12.8 198.3,11.0 200.0,10.8" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">menopause supplements</span>
+              <span class="kw-delta ">+74%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,40.0 1.3,39.9 2.6,39.9 3.9,39.9 5.2,40.0 6.5,39.9 7.8,39.9 9.1,39.9 10.4,39.9 11.7,39.9 13.0,39.9 14.3,39.9 15.6,39.9 16.9,39.9 18.2,39.9 19.5,39.9 20.8,39.9 22.1,39.9 23.4,39.5 24.7,38.1 26.0,36.7 27.3,36.1 28.6,35.9 29.9,36.5 31.2,37.5 32.5,38.3 33.8,39.2 35.1,39.1 36.4,39.4 37.7,39.3 39.0,39.4 40.3,40.0 41.6,39.5 42.9,39.5 44.2,39.7 45.5,39.5 46.8,39.6 48.1,39.6 49.4,39.7 50.6,39.6 51.9,39.6 53.2,39.7 54.5,39.8 55.8,39.7 57.1,39.6 58.4,39.8 59.7,39.9 61.0,39.8 62.3,39.8 63.6,39.8 64.9,39.9 66.2,39.8 67.5,39.8 68.8,39.7 70.1,39.6 71.4,39.8 72.7,39.8 74.0,39.9 75.3,39.9 76.6,39.9 77.9,39.9 79.2,39.8 80.5,39.8 81.8,39.8 83.1,39.9 84.4,39.8 85.7,39.8 87.0,39.8 88.3,39.8 89.6,39.7 90.9,39.7 92.2,39.7 93.5,39.6 94.8,39.7 96.1,39.7 97.4,39.7 98.7,39.7 100.0,39.7 101.3,39.8 102.6,39.9 103.9,39.8 105.2,39.9 106.5,39.9 107.8,39.8 109.1,39.6 110.4,39.6 111.7,39.7 113.0,39.8 114.3,39.6 115.6,39.7 116.9,39.8 118.2,39.6 119.5,39.6 120.8,39.6 122.1,39.6 123.4,39.6 124.7,39.7 126.0,39.7 127.3,39.7 128.6,39.8 129.9,39.8 131.2,39.8 132.5,39.7 133.8,39.7 135.1,39.6 136.4,39.6 137.7,39.5 139.0,39.6 140.3,39.6 141.6,39.6 142.9,39.6 144.2,39.5 145.5,39.7 146.8,39.6 148.1,39.6 149.4,39.5 150.6,39.6 151.9,39.7 153.2,39.7 154.5,39.6 155.8,39.6 157.1,39.6 158.4,39.4 159.7,39.5 161.0,39.6 162.3,39.6 163.6,39.6 164.9,39.7 166.2,39.7 167.5,39.6 168.8,39.4 170.1,39.5 171.4,39.3 172.7,39.4 174.0,11.3 175.3,0.0 176.6,20.6 177.9,37.9 179.2,38.0 180.5,39.1 181.8,39.6 183.1,39.6 184.4,39.7 185.7,39.7 187.0,39.8 188.3,39.7 189.6,39.6 190.9,39.6 192.2,39.6 193.5,39.6 194.8,39.6 196.1,39.7 197.4,39.8 198.7,39.8 200.0,39.9" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- D · Cohort Snapshot -->
+      <div class="b-cell">
+        <div class="b-tag">D · Cohort Snapshot</div>
+        <div class="b-title">Review / ASP / Launch</div>
+        <div class="b-desc">Median benchmarks + review-wall / launch-year cohorts</div>
+        <div class="cell-stats">
+          <div class="cell-stat"><div class="v accent">$33</div><div class="l">Median ASP</div></div>
+          <div class="cell-stat"><div class="v">4.2★</div><div class="l">Median Rating</div></div>
+          <div class="cell-stat"><div class="v">190</div><div class="l">Median Reviews</div></div>
+          <div class="cell-stat"><div class="v">2024</div><div class="l">Median Launch</div></div>
+        </div>
+        <div class="cohort-grid">
+          <div class="cohort-block">
+            <div class="ch-title">Rev by Review Tier</div>
+            <div class="cohort-rows">
+              <div class="cohort-row"><div class="lbl">5k–20k</div><div class="bar-wrap"><div class="bar" style="width:67.9%"></div></div><div class="pct">68%</div></div>
+              <div class="cohort-row"><div class="lbl">1k–5k</div><div class="bar-wrap"><div class="bar" style="width:16.1%"></div></div><div class="pct">16%</div></div>
+              <div class="cohort-row"><div class="lbl">0–100</div><div class="bar-wrap"><div class="bar" style="width:8.5%"></div></div><div class="pct">9%</div></div>
+            </div>
+          </div>
+          <div class="cohort-block">
+            <div class="ch-title">Rev by Launch Year</div>
+            <div class="cohort-rows">
+              <div class="cohort-row"><div class="lbl">pre-2018</div><div class="bar-wrap"><div class="bar" style="width:67.9%"></div></div><div class="pct">68%</div></div>
+              <div class="cohort-row"><div class="lbl">2024</div><div class="bar-wrap"><div class="bar" style="width:19.9%"></div></div><div class="pct">20%</div></div>
+              <div class="cohort-row"><div class="lbl">2025+</div><div class="bar-wrap"><div class="bar" style="width:7.9%"></div></div><div class="pct">8%</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- E · Value Curve -->
+      <div class="b-cell">
+        <div class="b-tag">E · Value Curve</div>
+        <div class="b-title">ASP Price-Rev Concentration</div>
+        <div class="b-desc">Where dollars cluster · 50% rev capture ASP point</div>
+        <div class="vc-bars">
+          <div class="vc-row"><div class="vc-label">&lt;$20</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:100%"></div></div><div class="vc-val">68%</div></div>
+          <div class="vc-row"><div class="vc-label">$30–40</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:32%"></div></div><div class="vc-val">22%</div></div>
+          <div class="vc-row"><div class="vc-label">$50–60</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:10%"></div></div><div class="vc-val">7%</div></div>
+          <div class="vc-row"><div class="vc-label">$20–30</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:4.5%"></div></div><div class="vc-val">3%</div></div>
+        </div>
+        <div class="vc-callout">50% rev capture at <strong>$18.68</strong> · Estroven distorts curve hard</div>
+      </div>
+
+      <!-- F · Top Competitors -->
+      <div class="b-cell">
+        <div class="b-tag">F · Top Competitors</div>
+        <div class="b-title">Top 5 ASIN Benchmark Set</div>
+        <div class="b-desc">Brand · monthly rev · reviews · launch · ASP</div>
+        <table class="comp-table">
+          <thead><tr><th>Brand</th><th class="right">Rev/mo</th><th class="right">Reviews</th><th class="right">Launch</th><th class="right">ASP</th></tr></thead>
+          <tbody>
+            <tr><td class="brand">Estroven</td><td class="right"><span class="accent">$379k</span></td><td class="right">16.5k</td><td class="right">2016</td><td class="right">$19</td></tr>
+            <tr><td class="brand">VoomVaya</td><td class="right">$90k</td><td class="right">1.3k</td><td class="right">2024</td><td class="right">$35</td></tr>
+            <tr><td class="brand">GLEEFULL</td><td class="right">$26k</td><td class="right">32</td><td class="right">2025</td><td class="right">$60</td></tr>
+            <tr><td class="brand">EVABIOTIC</td><td class="right">$21k</td><td class="right">81</td><td class="right">2024</td><td class="right">$34</td></tr>
+            <tr><td class="brand">Biegeos</td><td class="right">$18k</td><td class="right">301</td><td class="right">2025</td><td class="right">$23</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- G · Review Sentiment (span 2) -->
+      <div class="b-cell span-2">
+        <div class="b-tag">G · Review Sentiment</div>
+        <div class="b-title">Themes · Adverse Events · Watchouts</div>
+        <div class="b-desc">From negative-tier review scrape</div>
+        <div class="sentiment-grid">
+          <div class="sentiment-block">
+            <div class="sb-title">Top Complaint Themes</div>
+            <div class="theme-row"><span class="theme">Weight loss didn't materialize</span><span class="pct alert">~38%</span></div>
+            <div class="theme-row"><span class="theme">Hot flash relief mixed/poor</span><span class="pct">~22%</span></div>
+            <div class="theme-row"><span class="theme">Gummy format skepticism</span><span class="pct">~14%</span></div>
+            <div class="theme-row"><span class="theme">Brand transparency concerns</span><span class="pct">~9%</span></div>
+            <div class="theme-row"><span class="theme">Mild GI/skin/mood side effects</span><span class="pct">~7%</span></div>
+          </div>
+          <div class="sentiment-block">
+            <div class="sb-title">Watchouts &amp; Opportunity Zones</div>
+            <div class="theme-row"><span class="theme">"Meno belly" / hormonal weight gain</span><span class="pct alert">High intent</span></div>
+            <div class="theme-row"><span class="theme">Insomnia + exhaustion reports</span><span class="pct">Flag</span></div>
+            <div class="theme-row"><span class="theme">HRT interference reports</span><span class="pct">Flag</span></div>
+            <div class="theme-row"><span class="theme">Want non-gummy serious format</span><span class="pct alert">Opp</span></div>
+            <div class="theme-row"><span class="theme">Clear ingredient/manufacturing story</span><span class="pct alert">Opp</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H · Innovation Signal -->
+      <div class="b-cell">
+        <div class="b-tag">H · Innovation Signal</div>
+        <div class="b-title">Acute Lane &amp; Risk Frame</div>
+        <div class="b-desc">Where buyers are searching with intent</div>
+        <div class="innov-tags">
+          <div class="innov-tag">
+            <div class="it-label">Innovation Lane</div>
+            <div class="it-body">Meno-belly + perimenopause bloat support, anchored in HRT-adjacent language (+42%/yr trend)</div>
+          </div>
+          <div class="innov-tag">
+            <div class="it-label">Leading Acute Term</div>
+            <div class="it-body">"perimenopause bloating relief" · 688 SV · $5.91 high bid</div>
+          </div>
+          <div class="innov-tag risk">
+            <div class="it-label">Key Risk</div>
+            <div class="it-body">HRT replacement framing. Stay in support language.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="read-through">
+      <div class="rt-tag">Read-through</div>
+      <div class="rt-body">A small, brand-locked segment where Estroven owns 68% of revenue and 62% of search is captured by competitor names. The clean entry is HRT-adjacent perimenopause/bloat language with a credible non-gummy format — the wedge is real but narrow.</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       SEGMENT 02 — Menopause Support
+       ============================================ -->
+  <div class="segment-block">
+    <div class="segment-block-header">
+      <div class="num-badge">02</div>
+      <div class="seg-info">
+        <div class="tag">Segment 02</div>
+        <h2>Menopause Support</h2>
+      </div>
+      <div class="header-kpis">
+        <div class="header-kpi"><div class="v accent">$233M</div><div class="l">TAM</div></div>
+        <div class="header-kpi"><div class="v">224k</div><div class="l">Monthly SV</div></div>
+        <div class="header-kpi"><div class="v accent">7.0</div><div class="l">Trend Score</div></div>
+        <div class="header-kpi"><div class="v">66.2%</div><div class="l">Top 5 Share</div></div>
+        <div class="header-kpi"><div class="v">1.7k</div><div class="l">Median Reviews</div></div>
+      </div>
+    </div>
+
+    <div class="breakout-grid">
+      <!-- A · Market Dynamics -->
+      <div class="b-cell">
+        <div class="b-tag">A · Market Dynamics</div>
+        <div class="b-title">Demand &amp; Cost Mechanics</div>
+        <div class="b-desc">Rev/search · branded % · CPC band</div>
+        <div class="cell-stats">
+          <div class="cell-stat"><div class="v accent">$86.81</div><div class="l">Rev / Search</div></div>
+          <div class="cell-stat"><div class="v">44%</div><div class="l">Branded SV Share</div></div>
+          <div class="cell-stat"><div class="v">$1.86</div><div class="l">SV-Wt CPC</div></div>
+          <div class="cell-stat"><div class="v">$2.31</div><div class="l">Median Bid</div></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">
+          The highest revenue-per-search of all three segments by 18× over GLP-1. Real category demand, branded share lower than MWL.
+        </div>
+      </div>
+
+      <!-- B · Semantic Core -->
+      <div class="b-cell">
+        <div class="b-tag">B · Semantic Core</div>
+        <div class="b-title">Core / Wedge / Avoid Map</div>
+        <div class="b-desc">3-bucket KW split with % SV by intent zone</div>
+        <div class="bucket-bar">
+          <div class="seg core" style="width:52.3%">52%</div>
+          <div class="seg wedge" style="width:4.2%"></div>
+          <div class="seg avoid" style="width:43.5%">44%</div>
+        </div>
+        <div class="bucket-legend">
+          <div class="leg-item"><div class="leg-dot core"></div>Core 52.3%</div>
+          <div class="leg-item"><div class="leg-dot wedge"></div>Wedge 4.2%</div>
+          <div class="leg-item"><div class="leg-dot avoid"></div>Avoid 43.5%</div>
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">
+          Strongest core block of the three. Branded share dominated by Estroven (40k SV alone). Wedge: hot flashes, night sweats, equol/bioidentical.
+        </div>
+      </div>
+
+      <!-- C · Search Trends -->
+      <div class="b-cell">
+        <div class="b-tag">C · Search Trends</div>
+        <div class="b-title">Top 3 KW Trajectories</div>
+        <div class="b-desc">Weekly SV, full date range</div>
+        <div style="margin-top:10px;">
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">menopause supplements for women</span>
+              <span class="kw-delta ">+26%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,38.8 0.8,38.8 1.6,38.8 2.3,38.5 3.1,38.7 3.9,38.7 4.7,38.4 5.4,38.5 6.2,38.4 7.0,38.6 7.8,38.5 8.5,38.6 9.3,38.6 10.1,38.5 10.9,38.6 11.6,38.6 12.4,38.7 13.2,38.6 14.0,38.6 14.7,38.7 15.5,38.7 16.3,38.8 17.1,39.0 17.8,38.9 18.6,39.0 19.4,39.0 20.2,39.1 20.9,39.2 21.7,39.3 22.5,39.2 23.3,39.1 24.0,39.3 24.8,39.2 25.6,39.0 26.4,39.0 27.1,39.0 27.9,39.0 28.7,39.0 29.5,39.0 30.2,39.0 31.0,38.9 31.8,38.9 32.6,39.0 33.3,38.9 34.1,38.8 34.9,38.6 35.7,39.0 36.4,39.0 37.2,38.8 38.0,38.4 38.8,38.7 39.5,38.6 40.3,38.6 41.1,38.8 41.9,38.6 42.6,38.8 43.4,38.9 44.2,38.6 45.0,38.5 45.7,38.3 46.5,38.5 47.3,38.1 48.1,38.2 48.8,38.2 49.6,38.2 50.4,38.2 51.2,38.1 51.9,38.1 52.7,38.2 53.5,38.1 54.3,38.5 55.0,38.8 55.8,38.8 56.6,38.8 57.4,38.8 58.1,38.7 58.9,38.6 59.7,38.8 60.5,39.0 61.2,39.1 62.0,39.0 62.8,38.9 63.6,38.9 64.3,39.0 65.1,39.0 65.9,38.6 66.7,38.8 67.4,38.9 68.2,38.9 69.0,38.9 69.8,38.9 70.5,38.6 71.3,38.8 72.1,38.8 72.9,38.8 73.6,38.8 74.4,38.8 75.2,38.9 76.0,38.8 76.7,38.9 77.5,38.9 78.3,39.3 79.1,39.9 79.8,39.4 80.6,38.9 81.4,38.3 82.2,38.2 82.9,38.1 83.7,38.1 84.5,38.1 85.3,38.0 86.0,37.9 86.8,38.2 87.6,38.1 88.4,38.1 89.1,38.0 89.9,37.7 90.7,37.9 91.5,38.1 92.2,37.8 93.0,37.7 93.8,38.3 94.6,39.9 95.3,40.0 96.1,40.0 96.9,39.9 97.7,39.7 98.4,39.5 99.2,39.5 100.0,39.3 100.8,39.2 101.6,38.8 102.3,38.7 103.1,38.6 103.9,38.8 104.7,38.3 105.4,37.6 106.2,37.6 107.0,37.7 107.8,37.3 108.5,37.2 109.3,37.2 110.1,37.3 110.9,37.1 111.6,36.7 112.4,36.7 113.2,36.9 114.0,36.5 114.7,36.8 115.5,36.6 116.3,36.7 117.1,36.8 117.8,37.1 118.6,36.7 119.4,36.8 120.2,37.0 120.9,37.0 121.7,37.5 122.5,36.5 123.3,36.7 124.0,36.7 124.8,36.9 125.6,37.1 126.4,37.1 127.1,37.5 127.9,37.0 128.7,36.8 129.5,36.9 130.2,36.9 131.0,36.9 131.8,36.8 132.6,37.0 133.3,37.0 134.1,36.9 134.9,37.1 135.7,37.1 136.4,36.4 137.2,36.8 138.0,37.2 138.8,37.2 139.5,37.5 140.3,37.6 141.1,37.3 141.9,37.6 142.6,37.5 143.4,38.0 144.2,38.1 145.0,38.6 145.7,38.1 146.5,37.8 147.3,37.7 148.1,37.4 148.8,37.1 149.6,37.0 150.4,37.0 151.2,36.9 151.9,36.6 152.7,36.8 153.5,36.9 154.3,36.9 155.0,36.7 155.8,36.5 156.6,36.7 157.4,37.0 158.1,37.4 158.9,37.1 159.7,36.9 160.5,37.2 161.2,37.4 162.0,37.2 162.8,37.1 163.6,37.4 164.3,37.4 165.1,37.6 165.9,37.7 166.7,36.7 167.4,37.8 168.2,37.7 169.0,37.6 169.8,37.4 170.5,37.1 171.3,37.4 172.1,37.4 172.9,37.6 173.6,37.5 174.4,37.7 175.2,37.4 176.0,37.8 176.7,37.3 177.5,38.2 178.3,38.4 179.1,38.4 179.8,38.5 180.6,38.9 181.4,38.3 182.2,38.3 182.9,29.1 183.7,0.0 184.5,27.2 185.3,38.6 186.0,38.1 186.8,37.6 187.6,38.0 188.4,38.4 189.1,38.0 189.9,38.0 190.7,37.8 191.5,37.6 192.2,37.7 193.0,37.7 193.8,37.7 194.6,37.7 195.3,37.4 196.1,37.7 196.9,37.6 197.7,37.7 198.4,37.8 199.2,37.8 200.0,37.7" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">menopause support</span>
+              <span class="kw-delta neg">-0%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,27.8 0.8,28.2 1.6,27.4 2.3,26.8 3.1,27.7 3.9,27.2 4.7,27.9 5.4,23.9 6.2,23.4 7.0,23.6 7.8,26.5 8.5,26.4 9.3,25.4 10.1,25.5 10.9,26.7 11.6,26.8 12.4,27.0 13.2,26.1 14.0,24.6 14.7,26.8 15.5,26.1 16.3,26.8 17.1,27.3 17.8,30.0 18.6,27.9 19.4,27.7 20.2,30.0 20.9,30.2 21.7,29.6 22.5,26.4 23.3,26.5 24.0,26.6 24.8,29.2 25.6,27.8 26.4,27.0 27.1,27.4 27.9,28.6 28.7,31.5 29.5,31.3 30.2,30.1 31.0,28.6 31.8,30.3 32.6,28.4 33.3,29.0 34.1,29.3 34.9,29.0 35.7,29.6 36.4,30.3 37.2,25.5 38.0,29.3 38.8,29.3 39.5,26.0 40.3,27.6 41.1,29.2 41.9,29.7 42.6,29.1 43.4,29.2 44.2,26.0 45.0,25.8 45.7,25.8 46.5,28.8 47.3,27.2 48.1,27.0 48.8,24.6 49.6,23.2 50.4,27.8 51.2,27.4 51.9,24.2 52.7,23.2 53.5,23.6 54.3,26.6 55.0,30.0 55.8,30.8 56.6,29.9 57.4,30.9 58.1,32.3 58.9,30.9 59.7,31.4 60.5,32.1 61.2,29.5 62.0,24.8 62.8,21.4 63.6,21.9 64.3,25.7 65.1,26.5 65.9,23.8 66.7,26.4 67.4,29.9 68.2,29.0 69.0,28.9 69.8,26.2 70.5,26.1 71.3,27.0 72.1,26.2 72.9,26.3 73.6,26.4 74.4,27.1 75.2,34.9 76.0,33.7 76.7,34.9 77.5,34.8 78.3,36.1 79.1,37.7 79.8,35.2 80.6,35.3 81.4,35.3 82.2,35.3 82.9,33.7 83.7,34.1 84.5,32.9 85.3,32.4 86.0,31.4 86.8,33.7 87.6,33.9 88.4,33.9 89.1,31.6 89.9,32.4 90.7,33.6 91.5,33.7 92.2,34.0 93.0,33.7 93.8,34.9 94.6,22.1 95.3,0.0 96.1,24.9 96.9,30.3 97.7,32.5 98.4,34.9 99.2,32.9 100.0,33.3 100.8,35.5 101.6,34.9 102.3,35.7 103.1,34.9 103.9,40.0 104.7,36.4 105.4,33.2 106.2,35.1 107.0,35.3 107.8,35.2 108.5,34.1 109.3,35.2 110.1,33.7 110.9,34.0 111.6,33.0 112.4,32.8 113.2,33.1 114.0,32.6 114.7,34.6 115.5,34.0 116.3,25.4 117.1,30.3 117.8,30.8 118.6,30.1 119.4,30.1 120.2,32.4 120.9,30.4 121.7,32.7 122.5,32.2 123.3,32.2 124.0,32.3 124.8,32.2 125.6,33.0 126.4,31.7 127.1,32.7 127.9,31.5 128.7,32.9 129.5,32.7 130.2,32.3 131.0,32.2 131.8,31.4 132.6,30.9 133.3,30.6 134.1,31.6 134.9,32.8 135.7,34.1 136.4,32.6 137.2,32.9 138.0,33.5 138.8,35.1 139.5,34.9 140.3,34.8 141.1,36.0 141.9,35.2 142.6,35.0 143.4,35.3 144.2,35.0 145.0,35.5 145.7,34.3 146.5,34.8 147.3,33.7 148.1,32.8 148.8,33.0 149.6,32.4 150.4,32.6 151.2,31.4 151.9,30.4 152.7,30.9 153.5,31.5 154.3,32.8 155.0,32.2 155.8,31.4 156.6,30.4 157.4,33.6 158.1,33.5 158.9,32.7 159.7,32.2 160.5,33.0 161.2,32.9 162.0,33.1 162.8,32.7 163.6,32.7 164.3,32.8 165.1,33.2 165.9,33.7 166.7,30.1 167.4,33.5 168.2,33.2 169.0,33.1 169.8,30.7 170.5,31.7 171.3,32.7 172.1,33.2 172.9,30.5 173.6,23.3 174.4,24.7 175.2,24.1 176.0,27.3 176.7,24.7 177.5,30.4 178.3,30.5 179.1,30.3 179.8,30.5 180.6,32.1 181.4,26.1 182.2,27.3 182.9,27.3 183.7,27.6 184.5,25.3 185.3,29.2 186.0,26.0 186.8,23.6 187.6,24.7 188.4,23.0 189.1,21.2 189.9,19.7 190.7,18.8 191.5,16.2 192.2,16.7 193.0,12.3 193.8,15.2 194.6,18.4 195.3,16.1 196.1,15.6 196.9,17.1 197.7,18.2 198.4,18.5 199.2,18.9 200.0,18.6" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">menopause relief</span>
+              <span class="kw-delta neg">-15%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,12.0 0.8,12.8 1.6,8.6 2.3,12.8 3.1,14.6 3.9,16.5 4.7,11.4 5.4,17.4 6.2,16.4 7.0,17.0 7.8,6.3 8.5,17.1 9.3,17.4 10.1,18.0 10.9,8.8 11.6,11.3 12.4,7.6 13.2,0.0 14.0,0.3 14.7,2.1 15.5,0.0 16.3,5.4 17.1,10.5 17.8,10.3 18.6,13.7 19.4,16.2 20.2,16.0 20.9,17.0 21.7,18.5 22.5,8.8 23.3,6.7 24.0,15.7 24.8,17.2 25.6,17.4 26.4,13.2 27.1,11.1 27.9,12.5 28.7,14.9 29.5,15.7 30.2,10.6 31.0,11.5 31.8,11.0 32.6,8.7 33.3,11.0 34.1,9.0 34.9,10.6 35.7,21.1 36.4,17.2 37.2,14.2 38.0,9.3 38.8,10.9 39.5,9.7 40.3,12.4 41.1,16.4 41.9,18.6 42.6,16.3 43.4,19.0 44.2,15.3 45.0,15.5 45.7,12.6 46.5,16.7 47.3,17.6 48.1,13.2 48.8,14.4 49.6,7.7 50.4,13.5 51.2,13.9 51.9,12.8 52.7,10.0 53.5,13.9 54.3,21.3 55.0,22.7 55.8,24.7 56.6,21.5 57.4,22.0 58.1,25.6 58.9,25.6 59.7,26.6 60.5,28.2 61.2,23.4 62.0,20.5 62.8,11.1 63.6,8.3 64.3,16.6 65.1,17.5 65.9,8.1 66.7,17.2 67.4,22.9 68.2,18.8 69.0,19.8 69.8,15.7 70.5,16.5 71.3,22.1 72.1,22.0 72.9,16.8 73.6,17.0 74.4,17.0 75.2,29.7 76.0,28.9 76.7,31.1 77.5,29.5 78.3,34.1 79.1,40.0 79.8,38.3 80.6,39.6 81.4,38.3 82.2,37.8 82.9,37.1 83.7,38.1 84.5,37.5 85.3,37.2 86.0,35.6 86.8,38.4 87.6,38.1 88.4,39.2 89.1,39.4 89.9,37.3 90.7,37.8 91.5,38.0 92.2,37.9 93.0,37.9 93.8,37.4 94.6,32.4 95.3,17.4 96.1,24.0 96.9,27.7 97.7,27.0 98.4,32.4 99.2,32.8 100.0,32.6 100.8,34.9 101.6,32.7 102.3,33.4 103.1,31.9 103.9,34.4 104.7,33.6 105.4,28.8 106.2,30.0 107.0,29.6 107.8,26.2 108.5,25.9 109.3,28.6 110.1,26.3 110.9,28.2 111.6,28.0 112.4,28.2 113.2,30.1 114.0,31.1 114.7,32.1 115.5,32.8 116.3,30.2 117.1,29.8 117.8,29.9 118.6,28.9 119.4,28.1 120.2,27.5 120.9,27.4 121.7,28.0 122.5,27.2 123.3,27.9 124.0,28.1 124.8,29.4 125.6,29.5 126.4,29.7 127.1,31.3 127.9,29.0 128.7,29.9 129.5,30.0 130.2,27.2 131.0,27.2 131.8,27.7 132.6,26.6 133.3,27.7 134.1,27.9 134.9,30.2 135.7,32.1 136.4,29.2 137.2,31.3 138.0,34.6 138.8,33.4 139.5,35.1 140.3,34.6 141.1,35.7 141.9,35.3 142.6,33.8 143.4,34.0 144.2,31.3 145.0,35.8 145.7,31.7 146.5,30.0 147.3,29.8 148.1,32.6 148.8,30.0 149.6,29.6 150.4,29.7 151.2,30.2 151.9,28.3 152.7,29.6 153.5,30.0 154.3,29.8 155.0,29.3 155.8,27.7 156.6,28.8 157.4,31.1 158.1,29.4 158.9,28.0 159.7,27.2 160.5,25.4 161.2,26.0 162.0,28.7 162.8,25.0 163.6,24.9 164.3,24.4 165.1,25.2 165.9,25.6 166.7,14.9 167.4,22.7 168.2,19.8 169.0,16.3 169.8,15.4 170.5,15.3 171.3,14.9 172.1,12.0 172.9,9.4 173.6,1.2 174.4,4.2 175.2,5.4 176.0,15.8 176.7,17.9 177.5,25.9 178.3,26.2 179.1,25.6 179.8,28.7 180.6,29.2 181.4,22.8 182.2,21.8 182.9,21.8 183.7,20.1 184.5,18.2 185.3,23.9 186.0,24.1 186.8,17.0 187.6,21.9 188.4,25.9 189.1,24.4 189.9,23.9 190.7,23.0 191.5,23.7 192.2,26.0 193.0,26.5 193.8,26.9 194.6,27.7 195.3,22.9 196.1,25.5 196.9,26.0 197.7,25.5 198.4,29.0 199.2,25.0 200.0,24.8" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- D · Cohort Snapshot -->
+      <div class="b-cell">
+        <div class="b-tag">D · Cohort Snapshot</div>
+        <div class="b-title">Review / ASP / Launch</div>
+        <div class="b-desc">Median benchmarks + review-wall / launch-year cohorts</div>
+        <div class="cell-stats">
+          <div class="cell-stat"><div class="v accent">$48</div><div class="l">Median ASP</div></div>
+          <div class="cell-stat"><div class="v">4.3★</div><div class="l">Median Rating</div></div>
+          <div class="cell-stat"><div class="v">1.7k</div><div class="l">Median Reviews</div></div>
+          <div class="cell-stat"><div class="v">2022</div><div class="l">Median Launch</div></div>
+        </div>
+        <div class="cohort-grid">
+          <div class="cohort-block">
+            <div class="ch-title">Rev by Review Tier</div>
+            <div class="cohort-rows">
+              <div class="cohort-row"><div class="lbl">20k+</div><div class="bar-wrap"><div class="bar" style="width:69.3%"></div></div><div class="pct">69%</div></div>
+              <div class="cohort-row"><div class="lbl">1k–5k</div><div class="bar-wrap"><div class="bar" style="width:20.8%"></div></div><div class="pct">21%</div></div>
+              <div class="cohort-row"><div class="lbl">5k–20k</div><div class="bar-wrap"><div class="bar" style="width:3.6%"></div></div><div class="pct">4%</div></div>
+            </div>
+          </div>
+          <div class="cohort-block">
+            <div class="ch-title">Rev by Launch Year</div>
+            <div class="cohort-rows">
+              <div class="cohort-row"><div class="lbl">2020–21</div><div class="bar-wrap"><div class="bar" style="width:63.9%"></div></div><div class="pct">64%</div></div>
+              <div class="cohort-row"><div class="lbl">2022–23</div><div class="bar-wrap"><div class="bar" style="width:14.4%"></div></div><div class="pct">14%</div></div>
+              <div class="cohort-row"><div class="lbl">pre-2018</div><div class="bar-wrap"><div class="bar" style="width:9.9%"></div></div><div class="pct">10%</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- E · Value Curve -->
+      <div class="b-cell">
+        <div class="b-tag">E · Value Curve</div>
+        <div class="b-title">ASP Price-Rev Concentration</div>
+        <div class="b-desc">Where dollars cluster · 50% rev capture ASP point</div>
+        <div class="vc-bars">
+          <div class="vc-row"><div class="vc-label">$80+</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:100%"></div></div><div class="vc-val">43%</div></div>
+          <div class="vc-row"><div class="vc-label">$50–60</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:64%"></div></div><div class="vc-val">27%</div></div>
+          <div class="vc-row"><div class="vc-label">$40–50</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:30%"></div></div><div class="vc-val">13%</div></div>
+          <div class="vc-row"><div class="vc-label">$30–40</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:27%"></div></div><div class="vc-val">11%</div></div>
+          <div class="vc-row"><div class="vc-label">$60–80</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:12%"></div></div><div class="vc-val">5%</div></div>
+        </div>
+        <div class="vc-callout">50% rev capture at <strong>$59.00</strong> · premium tolerance is real here</div>
+      </div>
+
+      <!-- F · Top Competitors -->
+      <div class="b-cell">
+        <div class="b-tag">F · Top Competitors</div>
+        <div class="b-title">Top 5 ASIN Benchmark Set</div>
+        <div class="b-desc">Brand · monthly rev · reviews · launch · ASP</div>
+        <table class="comp-table">
+          <thead><tr><th>Brand</th><th class="right">Rev/mo</th><th class="right">Reviews</th><th class="right">Launch</th><th class="right">ASP</th></tr></thead>
+          <tbody>
+            <tr><td class="brand">BB Co. Provitalize 3-pk</td><td class="right"><span class="accent">$4.74M</span></td><td class="right">38k</td><td class="right">2020</td><td class="right">$127</td></tr>
+            <tr><td class="brand">BB Co. Provitalize 2-pk</td><td class="right">$3.58M</td><td class="right">38k</td><td class="right">2020</td><td class="right">$98</td></tr>
+            <tr><td class="brand">BB Co. Provitalize 60ct</td><td class="right">$1.94M</td><td class="right">38k</td><td class="right">2020</td><td class="right">$53</td></tr>
+            <tr><td class="brand">SMNutrition</td><td class="right">$1.71M</td><td class="right">30k</td><td class="right">2023</td><td class="right">$47</td></tr>
+            <tr><td class="brand">Amberen</td><td class="right">$885k</td><td class="right">24k</td><td class="right">2012</td><td class="right">$65</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- G · Review Sentiment (span 2) -->
+      <div class="b-cell span-2">
+        <div class="b-tag">G · Review Sentiment</div>
+        <div class="b-title">Themes · Adverse Events · Watchouts</div>
+        <div class="b-desc">From negative-tier review scrape</div>
+        <div class="sentiment-grid">
+          <div class="sentiment-block">
+            <div class="sb-title">Top Complaint Themes (137 reviews)</div>
+            <div class="theme-row"><span class="theme">Product doesn't work / no relief</span><span class="pct alert">~32%</span></div>
+            <div class="theme-row"><span class="theme">Adverse events (allergic, cardiac, liver)</span><span class="pct alert">~18%</span></div>
+            <div class="theme-row"><span class="theme">GI distress / bloating</span><span class="pct">~14%</span></div>
+            <div class="theme-row"><span class="theme">QC/counterfeit (esp. Biote DIM)</span><span class="pct">~10%</span></div>
+            <div class="theme-row"><span class="theme">Price/value complaints</span><span class="pct">~8%</span></div>
+          </div>
+          <div class="sentiment-block">
+            <div class="sb-title">Watchouts &amp; Opportunity Zones</div>
+            <div class="theme-row"><span class="theme">DIM-class adverse event cluster</span><span class="pct alert">Major flag</span></div>
+            <div class="theme-row"><span class="theme">Amberen MSG/titanium dioxide callouts</span><span class="pct alert">Flag</span></div>
+            <div class="theme-row"><span class="theme">Front-of-pack ingredient transparency</span><span class="pct alert">Opp</span></div>
+            <div class="theme-row"><span class="theme">Provitalize bloat counter-intuitive complaints</span><span class="pct">Opp</span></div>
+            <div class="theme-row"><span class="theme">3-pack / S&amp;S bundle behavior proven</span><span class="pct alert">Opp</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H · Innovation Signal -->
+      <div class="b-cell">
+        <div class="b-tag">H · Innovation Signal</div>
+        <div class="b-title">Acute Lane &amp; Risk Frame</div>
+        <div class="b-desc">Where buyers are searching with intent</div>
+        <div class="innov-tags">
+          <div class="innov-tag">
+            <div class="it-label">Innovation Lane</div>
+            <div class="it-body">Clean-label hormone-balance probiotic with transparent ingredient story — punching at Biote/Amberen safety gap</div>
+          </div>
+          <div class="innov-tag">
+            <div class="it-label">Leading Acute Term</div>
+            <div class="it-body">"hot flashes menopause relief" · 4.3k SV · symptom-led conversion</div>
+          </div>
+          <div class="innov-tag risk">
+            <div class="it-label">Key Risk</div>
+            <div class="it-body">Trust collapse from category-wide safety reports. Lead with proof, not promises.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="read-through">
+      <div class="rt-tag">Read-through</div>
+      <div class="rt-body">The biggest revenue pool by 35× ($233M TAM) and the strongest core search block (52%), but locked behind a 5k+ review wall that holds 73% of revenue. The opening is a transparency play against an incumbent set carrying real safety baggage — particularly the DIM cluster.</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       SEGMENT 03 — GLP-1 Weight Loss
+       ============================================ -->
+  <div class="segment-block">
+    <div class="segment-block-header">
+      <div class="num-badge">03</div>
+      <div class="seg-info">
+        <div class="tag">Segment 03</div>
+        <h2>GLP-1 Weight Loss</h2>
+      </div>
+      <div class="header-kpis">
+        <div class="header-kpi"><div class="v accent">$36.2M</div><div class="l">TAM</div></div>
+        <div class="header-kpi"><div class="v">1.77M</div><div class="l">Monthly SV</div></div>
+        <div class="header-kpi"><div class="v accent">7.0</div><div class="l">Trend Score</div></div>
+        <div class="header-kpi"><div class="v">89.3%</div><div class="l">Top 5 Share</div></div>
+        <div class="header-kpi"><div class="v">284</div><div class="l">Median Reviews</div></div>
+      </div>
+    </div>
+
+    <div class="breakout-grid">
+      <!-- A · Market Dynamics -->
+      <div class="b-cell">
+        <div class="b-tag">A · Market Dynamics</div>
+        <div class="b-title">Demand &amp; Cost Mechanics</div>
+        <div class="b-desc">Rev/search · branded % · CPC band</div>
+        <div class="cell-stats">
+          <div class="cell-stat"><div class="v accent">$1.71</div><div class="l">Rev / Search</div></div>
+          <div class="cell-stat"><div class="v">17%</div><div class="l">Branded SV Share</div></div>
+          <div class="cell-stat"><div class="v">$1.44</div><div class="l">SV-Wt CPC</div></div>
+          <div class="cell-stat"><div class="v">$1.31</div><div class="l">Median Bid</div></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">
+          1.77M monthly SV — 15× MSP — but the lowest rev/search of all three. Demand is massive, monetization is thin.
+        </div>
+      </div>
+
+      <!-- B · Semantic Core -->
+      <div class="b-cell">
+        <div class="b-tag">B · Semantic Core</div>
+        <div class="b-title">Core / Wedge / Avoid Map</div>
+        <div class="b-desc">3-bucket KW split with % SV by intent zone</div>
+        <div class="bucket-bar">
+          <div class="seg core" style="width:58.1%">58%</div>
+          <div class="seg wedge" style="width:25.3%">25%</div>
+          <div class="seg avoid" style="width:16.6%">17%</div>
+        </div>
+        <div class="bucket-legend">
+          <div class="leg-item"><div class="leg-dot core"></div>Core 58.1%</div>
+          <div class="leg-item"><div class="leg-dot wedge"></div>Wedge 25.3%</div>
+          <div class="leg-item"><div class="leg-dot avoid"></div>Avoid 16.6%</div>
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">
+          Largest semantic core block by absolute SV (1M+ tracked SV in core). Wedge is appetite-suppressant + general weight loss. Avoid = drug-comparison terms.
+        </div>
+      </div>
+
+      <!-- C · Search Trends -->
+      <div class="b-cell">
+        <div class="b-tag">C · Search Trends</div>
+        <div class="b-title">Top 3 KW Trajectories</div>
+        <div class="b-desc">Weekly SV, full date range</div>
+        <div style="margin-top:10px;">
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">glp1 for weight loss</span>
+              <span class="kw-delta ">+99%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,39.9 1.4,39.9 2.9,40.0 4.3,39.9 5.8,39.9 7.2,39.9 8.7,39.9 10.1,40.0 11.6,40.0 13.0,40.0 14.5,39.9 15.9,39.9 17.4,39.9 18.8,39.9 20.3,39.8 21.7,39.8 23.2,39.7 24.6,39.4 26.1,39.4 27.5,38.8 29.0,32.4 30.4,37.0 31.9,37.6 33.3,37.9 34.8,36.3 36.2,34.9 37.7,37.3 39.1,37.4 40.6,35.8 42.0,35.6 43.5,35.1 44.9,35.0 46.4,34.4 47.8,33.8 49.3,33.4 50.7,33.6 52.2,33.2 53.6,33.2 55.1,34.5 56.5,34.3 58.0,34.6 59.4,33.4 60.9,33.4 62.3,34.5 63.8,33.8 65.2,35.8 66.7,34.7 68.1,35.0 69.6,35.0 71.0,34.8 72.5,34.0 73.9,34.4 75.4,33.5 76.8,32.6 78.3,30.8 79.7,33.8 81.2,33.8 82.6,31.0 84.1,29.8 85.5,31.8 87.0,32.5 88.4,33.4 89.9,34.1 91.3,35.2 92.8,36.0 94.2,35.6 95.7,35.3 97.1,36.0 98.6,36.5 100.0,33.9 101.4,34.3 102.9,33.6 104.3,33.2 105.8,32.7 107.2,32.0 108.7,32.6 110.1,32.3 111.6,31.3 113.0,31.9 114.5,32.2 115.9,31.1 117.4,31.3 118.8,32.6 120.3,33.4 121.7,32.1 123.2,33.4 124.6,34.3 126.1,34.7 127.5,33.9 129.0,34.5 130.4,34.6 131.9,34.3 133.3,34.9 134.8,34.4 136.2,33.9 137.7,32.9 139.1,30.1 140.6,30.7 142.0,31.3 143.5,31.1 144.9,28.6 146.4,28.0 147.8,22.1 149.3,16.1 150.7,16.3 152.2,6.4 153.6,7.7 155.1,7.8 156.5,10.8 158.0,16.3 159.4,20.8 160.9,23.0 162.3,22.7 163.8,24.6 165.2,23.6 166.7,24.7 168.1,23.9 169.6,24.6 171.0,24.7 172.5,23.9 173.9,15.1 175.4,12.7 176.8,14.5 178.3,20.8 179.7,19.2 181.2,21.0 182.6,12.3 184.1,12.1 185.5,11.4 187.0,9.4 188.4,9.7 189.9,8.3 191.3,4.2 192.8,6.0 194.2,2.0 195.7,6.0 197.1,0.0 198.6,5.4 200.0,10.3" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">glp-1 supplement weight loss</span>
+              <span class="kw-delta ">+70%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,39.8 0.9,39.9 1.8,40.0 2.7,40.0 3.6,40.0 4.5,40.0 5.4,40.0 6.3,40.0 7.2,40.0 8.1,40.0 9.0,40.0 9.9,40.0 10.8,40.0 11.7,40.0 12.6,40.0 13.5,40.0 14.3,40.0 15.2,40.0 16.1,40.0 17.0,40.0 17.9,40.0 18.8,40.0 19.7,39.9 20.6,40.0 21.5,40.0 22.4,40.0 23.3,40.0 24.2,40.0 25.1,39.8 26.0,39.9 26.9,39.9 27.8,40.0 28.7,40.0 29.6,40.0 30.5,40.0 31.4,40.0 32.3,39.9 33.2,40.0 34.1,40.0 35.0,40.0 35.9,39.9 36.8,39.9 37.7,40.0 38.6,40.0 39.5,40.0 40.4,40.0 41.3,40.0 42.2,40.0 43.0,40.0 43.9,39.9 44.8,39.9 45.7,39.9 46.6,39.9 47.5,39.9 48.4,39.9 49.3,39.9 50.2,39.9 51.1,39.9 52.0,39.9 52.9,39.9 53.8,39.9 54.7,39.9 55.6,39.9 56.5,39.9 57.4,39.8 58.3,39.9 59.2,39.9 60.1,40.0 61.0,40.0 61.9,39.9 62.8,39.9 63.7,39.9 64.6,39.9 65.5,39.9 66.4,39.9 67.3,39.9 68.2,39.9 69.1,39.9 70.0,39.9 70.9,39.9 71.7,39.9 72.6,39.9 73.5,39.9 74.4,39.9 75.3,39.9 76.2,39.9 77.1,39.9 78.0,39.9 78.9,39.9 79.8,39.9 80.7,39.9 81.6,39.8 82.5,39.8 83.4,39.8 84.3,39.8 85.2,39.8 86.1,39.8 87.0,39.7 87.9,39.7 88.8,39.6 89.7,39.7 90.6,39.4 91.5,36.5 92.4,38.8 93.3,38.9 94.2,39.1 95.1,38.5 96.0,38.6 96.9,38.6 97.8,37.6 98.7,36.2 99.6,38.8 100.4,38.7 101.3,38.0 102.2,37.6 103.1,37.4 104.0,37.6 104.9,36.8 105.8,36.2 106.7,36.7 107.6,37.5 108.5,36.7 109.4,36.1 110.3,37.2 111.2,37.2 112.1,37.5 113.0,36.9 113.9,37.0 114.8,37.1 115.7,37.3 116.6,37.8 117.5,37.4 118.4,37.3 119.3,37.6 120.2,37.5 121.1,37.1 122.0,37.2 122.9,36.1 123.8,36.2 124.7,33.1 125.6,35.2 126.5,35.9 127.4,34.9 128.3,33.9 129.1,35.7 130.0,36.4 130.9,33.0 131.8,28.3 132.7,28.6 133.6,31.2 134.5,36.6 135.4,36.6 136.3,36.5 137.2,26.0 138.1,17.5 139.0,15.0 139.9,31.7 140.8,34.2 141.7,33.8 142.6,34.0 143.5,34.1 144.4,34.2 145.3,31.7 146.2,32.8 147.1,33.0 148.0,33.9 148.9,32.7 149.8,32.9 150.7,33.8 151.6,31.7 152.5,30.3 153.4,30.7 154.3,32.4 155.2,0.0 156.1,22.0 157.0,32.2 157.8,31.0 158.7,30.7 159.6,28.2 160.5,29.4 161.4,24.3 162.3,2.8 163.2,25.9 164.1,34.2 165.0,34.4 165.9,33.1 166.8,31.1 167.7,30.7 168.6,31.0 169.5,31.1 170.4,30.9 171.3,31.4 172.2,32.5 173.1,34.3 174.0,33.8 174.9,34.4 175.8,35.0 176.7,35.3 177.6,35.5 178.5,35.0 179.4,36.1 180.3,35.5 181.2,35.7 182.1,36.4 183.0,36.0 183.9,34.2 184.8,33.6 185.7,33.9 186.5,35.3 187.4,34.4 188.3,34.8 189.2,33.5 190.1,33.2 191.0,33.4 191.9,33.4 192.8,35.0 193.7,35.9 194.6,36.2 195.5,36.4 196.4,36.4 197.3,36.8 198.2,36.4 199.1,36.9 200.0,36.9" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+          <div class="kw-trend-row">
+            <div class="kw-trend-header">
+              <span class="kw-name">glp1 supplements weight loss women</span>
+              <span class="kw-delta neg">-33%/yr</span>
+            </div>
+            <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <polyline points="0.0,40.0 2.5,35.9 5.0,32.5 7.5,30.9 10.0,26.2 12.5,25.4 15.0,22.9 17.5,22.1 20.0,27.1 22.5,29.0 25.0,27.4 27.5,21.7 30.0,22.0 32.5,20.7 35.0,16.7 37.5,16.3 40.0,20.4 42.5,20.7 45.0,16.7 47.5,10.8 50.0,13.7 52.5,11.8 55.0,12.2 57.5,10.3 60.0,11.3 62.5,11.6 65.0,7.0 67.5,1.3 70.0,1.0 72.5,10.3 75.0,7.5 77.5,5.5 80.0,6.7 82.5,6.3 85.0,0.1 87.5,0.0 90.0,4.5 92.5,20.6 95.0,15.8 97.5,18.7 100.0,22.4 102.5,22.9 105.0,25.8 107.5,27.8 110.0,29.2 112.5,30.7 115.0,26.6 117.5,23.6 120.0,25.3 122.5,26.8 125.0,28.8 127.5,26.8 130.0,29.0 132.5,29.9 135.0,31.3 137.5,33.2 140.0,30.2 142.5,30.6 145.0,30.6 147.5,31.9 150.0,33.8 152.5,32.5 155.0,28.4 157.5,27.1 160.0,28.0 162.5,30.9 165.0,30.0 167.5,30.2 170.0,27.6 172.5,27.1 175.0,26.8 177.5,26.5 180.0,25.9 182.5,26.1 185.0,24.0 187.5,25.1 190.0,25.1 192.5,26.6 195.0,26.8 197.5,26.1 200.0,26.7" fill="none" stroke="#11E8F2" stroke-width="1.5" opacity="0.85"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- D · Cohort Snapshot -->
+      <div class="b-cell">
+        <div class="b-tag">D · Cohort Snapshot</div>
+        <div class="b-title">Review / ASP / Launch</div>
+        <div class="b-desc">Median benchmarks + review-wall / launch-year cohorts</div>
+        <div class="cell-stats">
+          <div class="cell-stat"><div class="v accent">$42</div><div class="l">Median ASP</div></div>
+          <div class="cell-stat"><div class="v">4.2★</div><div class="l">Median Rating</div></div>
+          <div class="cell-stat"><div class="v">284</div><div class="l">Median Reviews</div></div>
+          <div class="cell-stat"><div class="v">2025</div><div class="l">Median Launch</div></div>
+        </div>
+        <div class="cohort-grid">
+          <div class="cohort-block">
+            <div class="ch-title">Rev by Review Tier</div>
+            <div class="cohort-rows">
+              <div class="cohort-row"><div class="lbl">500–1k</div><div class="bar-wrap"><div class="bar" style="width:59.1%"></div></div><div class="pct">59%</div></div>
+              <div class="cohort-row"><div class="lbl">100–500</div><div class="bar-wrap"><div class="bar" style="width:29.7%"></div></div><div class="pct">30%</div></div>
+              <div class="cohort-row"><div class="lbl">0–100</div><div class="bar-wrap"><div class="bar" style="width:7.4%"></div></div><div class="pct">7%</div></div>
+            </div>
+          </div>
+          <div class="cohort-block">
+            <div class="ch-title">Rev by Launch Year</div>
+            <div class="cohort-rows">
+              <div class="cohort-row"><div class="lbl">2025+</div><div class="bar-wrap"><div class="bar" style="width:95.4%"></div></div><div class="pct">95%</div></div>
+              <div class="cohort-row"><div class="lbl">2022–23</div><div class="bar-wrap"><div class="bar" style="width:3.8%"></div></div><div class="pct">4%</div></div>
+              <div class="cohort-row"><div class="lbl">2024</div><div class="bar-wrap"><div class="bar" style="width:0.8%"></div></div><div class="pct">1%</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- E · Value Curve -->
+      <div class="b-cell">
+        <div class="b-tag">E · Value Curve</div>
+        <div class="b-title">ASP Price-Rev Concentration</div>
+        <div class="b-desc">Where dollars cluster · 50% rev capture ASP point</div>
+        <div class="vc-bars">
+          <div class="vc-row"><div class="vc-label">$50–60</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:100%"></div></div><div class="vc-val">63%</div></div>
+          <div class="vc-row"><div class="vc-label">$30–40</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:45%"></div></div><div class="vc-val">29%</div></div>
+          <div class="vc-row"><div class="vc-label">$60–80</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:7%"></div></div><div class="vc-val">5%</div></div>
+          <div class="vc-row"><div class="vc-label">$40–50</div><div class="vc-bar-wrap"><div class="vc-bar" style="width:6%"></div></div><div class="vc-val">4%</div></div>
+        </div>
+        <div class="vc-callout">50% rev capture at <strong>$53.99</strong> · ColonBroom + BIOMA define the price pocket</div>
+      </div>
+
+      <!-- F · Top Competitors -->
+      <div class="b-cell">
+        <div class="b-tag">F · Top Competitors</div>
+        <div class="b-title">Top 5 ASIN Benchmark Set</div>
+        <div class="b-desc">Brand · monthly rev · reviews · launch · ASP</div>
+        <table class="comp-table">
+          <thead><tr><th>Brand</th><th class="right">Rev/mo</th><th class="right">Reviews</th><th class="right">Launch</th><th class="right">ASP</th></tr></thead>
+          <tbody>
+            <tr><td class="brand">ColonBroom GLP-1</td><td class="right"><span class="accent">$1.26M</span></td><td class="right">884</td><td class="right">2025</td><td class="right">$60</td></tr>
+            <tr><td class="brand">BIOMA GLP-1</td><td class="right">$640k</td><td class="right">294</td><td class="right">2025</td><td class="right">$54</td></tr>
+            <tr><td class="brand">Etta Vita GLP-1 Activator</td><td class="right">$525k</td><td class="right">972</td><td class="right">2025</td><td class="right">$40</td></tr>
+            <tr><td class="brand">Nutrimend IQ</td><td class="right">$137k</td><td class="right">35</td><td class="right">2025</td><td class="right">$40</td></tr>
+            <tr><td class="brand">InnoSupps Trim Biome</td><td class="right">$135k</td><td class="right">274</td><td class="right">2025</td><td class="right">$77</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- G · Review Sentiment (span 2) -->
+      <div class="b-cell span-2">
+        <div class="b-tag">G · Review Sentiment</div>
+        <div class="b-title">Themes · Adverse Events · Watchouts</div>
+        <div class="b-desc">From negative-tier review scrape</div>
+        <div class="sentiment-grid">
+          <div class="sentiment-block">
+            <div class="sb-title">Top Complaint Themes (102 reviews)</div>
+            <div class="theme-row"><span class="theme">No appetite suppression / no weight loss</span><span class="pct alert">~45%</span></div>
+            <div class="theme-row"><span class="theme">GI distress (both ways: diarrhea + constipation)</span><span class="pct">~22%</span></div>
+            <div class="theme-row"><span class="theme">Paradoxical weight GAIN (5-15 lbs)</span><span class="pct alert">~12%</span></div>
+            <div class="theme-row"><span class="theme">No-return policy backlash</span><span class="pct alert">~11%</span></div>
+            <div class="theme-row"><span class="theme">"Snake oil" / GLP-1 naming deception</span><span class="pct alert">~10%</span></div>
+          </div>
+          <div class="sentiment-block">
+            <div class="sb-title">Watchouts &amp; Opportunity Zones</div>
+            <div class="theme-row"><span class="theme">Category-level credibility collapse</span><span class="pct alert">Major flag</span></div>
+            <div class="theme-row"><span class="theme">Buyers documenting Mounjaro switches</span><span class="pct alert">Flag</span></div>
+            <div class="theme-row"><span class="theme">BIOMA broken-bottle/glass shards</span><span class="pct">QC flag</span></div>
+            <div class="theme-row"><span class="theme">Honest positioning vs drug comparison</span><span class="pct alert">Opp</span></div>
+            <div class="theme-row"><span class="theme">Realistic claim ladder (gut → satiety)</span><span class="pct alert">Opp</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H · Innovation Signal -->
+      <div class="b-cell">
+        <div class="b-tag">H · Innovation Signal</div>
+        <div class="b-title">Acute Lane &amp; Risk Frame</div>
+        <div class="b-desc">Where buyers are searching with intent</div>
+        <div class="innov-tags">
+          <div class="innov-tag">
+            <div class="it-label">Innovation Lane</div>
+            <div class="it-body">Gut-microbiome satiety support, decoupled from "GLP-1" claim. Honest framing as the differentiator.</div>
+          </div>
+          <div class="innov-tag">
+            <div class="it-label">Leading Acute Term</div>
+            <div class="it-body">"appetite suppressant" · 141.6k SV · the real engine, not "GLP-1"</div>
+          </div>
+          <div class="innov-tag risk">
+            <div class="it-label">Key Risk</div>
+            <div class="it-body">"GLP-1" naming creates drug-equivalent expectation → review hostility. Naming convention itself is the trap.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="read-through">
+      <div class="rt-tag">Read-through</div>
+      <div class="rt-body">Massive demand (1.77M SV, +99%/yr on the head term) entirely orphaned by category-wide trust collapse. 95% of revenue from 2025+ launches and zero ASINs above 1k reviews means the wall is still soft — but the "GLP-1" naming convention is a credibility liability, not an asset. Honest positioning is the only legible wedge.</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 01 — MARKET SNAPSHOT
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">01</div>
+      <div class="row-title">Market Snapshot</div>
+      <div class="row-desc">Rev/search · Branded SV · Wall depth</div>
+    </div>
+    <div class="cell">
+      <div class="cell-stats">
+        <div class="cell-stat"><div class="v accent">$4.83</div><div class="l">Rev / Search</div></div>
+        <div class="cell-stat"><div class="v">62%</div><div class="l">Branded SV</div></div>
+        <div class="cell-stat"><div class="v">68%</div><div class="l">Review Wall</div></div>
+        <div class="cell-stat"><div class="v">$2.02</div><div class="l">SV-Wt CPC</div></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="cell-stats">
+        <div class="cell-stat"><div class="v accent">$86.81</div><div class="l">Rev / Search</div></div>
+        <div class="cell-stat"><div class="v">44%</div><div class="l">Branded SV</div></div>
+        <div class="cell-stat"><div class="v">73%</div><div class="l">Review Wall</div></div>
+        <div class="cell-stat"><div class="v">$1.86</div><div class="l">SV-Wt CPC</div></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="cell-stats">
+        <div class="cell-stat"><div class="v accent">$1.71</div><div class="l">Rev / Search</div></div>
+        <div class="cell-stat"><div class="v">17%</div><div class="l">Branded SV</div></div>
+        <div class="cell-stat"><div class="v">0%</div><div class="l">Review Wall</div></div>
+        <div class="cell-stat"><div class="v">$1.44</div><div class="l">SV-Wt CPC</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 02 — SEMANTIC CORE MAP
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">02</div>
+      <div class="row-title">Semantic Core Map</div>
+      <div class="row-desc">Core / Wedge / Avoid — % SV by intent</div>
+    </div>
+    <div class="cell">
+      <div class="bucket-bar"><div class="seg core" style="width:31.4%">31%</div><div class="seg wedge" style="width:6.4%"></div><div class="seg avoid" style="width:62.2%">62%</div></div>
+      <div class="bucket-legend"><div class="leg-item"><div class="leg-dot core"></div>Core 31%</div><div class="leg-item"><div class="leg-dot wedge"></div>Wedge 6%</div><div class="leg-item"><div class="leg-dot avoid"></div>Avoid 62%</div></div>
+    </div>
+    <div class="cell">
+      <div class="bucket-bar"><div class="seg core" style="width:52.3%">52%</div><div class="seg wedge" style="width:4.2%"></div><div class="seg avoid" style="width:43.5%">44%</div></div>
+      <div class="bucket-legend"><div class="leg-item"><div class="leg-dot core"></div>Core 52%</div><div class="leg-item"><div class="leg-dot wedge"></div>Wedge 4%</div><div class="leg-item"><div class="leg-dot avoid"></div>Avoid 44%</div></div>
+    </div>
+    <div class="cell">
+      <div class="bucket-bar"><div class="seg core" style="width:58.1%">58%</div><div class="seg wedge" style="width:25.3%">25%</div><div class="seg avoid" style="width:16.6%">17%</div></div>
+      <div class="bucket-legend"><div class="leg-item"><div class="leg-dot core"></div>Core 58%</div><div class="leg-item"><div class="leg-dot wedge"></div>Wedge 25%</div><div class="leg-item"><div class="leg-dot avoid"></div>Avoid 17%</div></div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 03 — SEARCH TRENDS
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">03</div>
+      <div class="row-title">Trend Score</div>
+      <div class="row-desc">SV momentum, 1-10</div>
+    </div>
+    <div class="cell">
+      <div class="trend-display"><div class="big">6.7</div><div class="meta"><div class="descriptor">Trending up</div><div class="sublabel">Avg +37%/yr</div></div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">Core "menopause weight loss" softening (−5%/yr) but HRT-adjacent terms heating up (+42–74%/yr).</div>
+    </div>
+    <div class="cell">
+      <div class="trend-display"><div class="big">7.0</div><div class="meta"><div class="descriptor">Trending up</div><div class="sublabel">Recent spike on "menopause support"</div></div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">Flat long-term, but recent 12-wk acceleration on "menopause support" pulls the score up sharply.</div>
+    </div>
+    <div class="cell">
+      <div class="trend-display"><div class="big">7.0</div><div class="meta"><div class="descriptor">Trending up</div><div class="sublabel">+99%/yr on head term</div></div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">Explosive growth on core "glp1 for weight loss" but the women-specific KW is in decline. Demand is diffusing.</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 04 — REVIEW / ASP / LAUNCH COHORTS
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">04</div>
+      <div class="row-title">Cohort Snapshot</div>
+      <div class="row-desc">Median ASP · rating · reviews · launch</div>
+    </div>
+    <div class="cell">
+      <div class="cell-stats">
+        <div class="cell-stat"><div class="v accent">$33</div><div class="l">Median ASP</div></div>
+        <div class="cell-stat"><div class="v">4.2★</div><div class="l">Median Rating</div></div>
+        <div class="cell-stat"><div class="v">190</div><div class="l">Median Reviews</div></div>
+        <div class="cell-stat"><div class="v">2024</div><div class="l">Median Launch</div></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="cell-stats">
+        <div class="cell-stat"><div class="v accent">$48</div><div class="l">Median ASP</div></div>
+        <div class="cell-stat"><div class="v">4.3★</div><div class="l">Median Rating</div></div>
+        <div class="cell-stat"><div class="v">1.7k</div><div class="l">Median Reviews</div></div>
+        <div class="cell-stat"><div class="v">2022</div><div class="l">Median Launch</div></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="cell-stats">
+        <div class="cell-stat"><div class="v accent">$42</div><div class="l">Median ASP</div></div>
+        <div class="cell-stat"><div class="v">4.2★</div><div class="l">Median Rating</div></div>
+        <div class="cell-stat"><div class="v">284</div><div class="l">Median Reviews</div></div>
+        <div class="cell-stat"><div class="v">2025</div><div class="l">Median Launch</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 05 — VALUE CURVE
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">05</div>
+      <div class="row-title">Value Curve</div>
+      <div class="row-desc">50% rev capture point</div>
+    </div>
+    <div class="cell">
+      <div class="trend-display"><div class="big">$19</div><div class="meta"><div class="descriptor">50% rev capture</div><div class="sublabel">Estroven distorts</div></div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">Bimodal: 68% &lt;$20 (Estroven), 22% in $30-40. No real premium tolerance yet.</div>
+    </div>
+    <div class="cell">
+      <div class="trend-display"><div class="big">$59</div><div class="meta"><div class="descriptor">50% rev capture</div><div class="sublabel">Premium tolerated</div></div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">$80+ band absorbs 43% (Provitalize 3-pack). $50-60 absorbs 27%. Pricing power is real.</div>
+    </div>
+    <div class="cell">
+      <div class="trend-display"><div class="big">$54</div><div class="meta"><div class="descriptor">50% rev capture</div><div class="sublabel">Tight cluster</div></div></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--rmkr-pale);line-height:1.4;">63% in $50-60, 29% in $30-40. ColonBroom and BIOMA define the band.</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 06 — REVIEW SENTIMENT
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">06</div>
+      <div class="row-title">Review Sentiment</div>
+      <div class="row-desc">Top complaint · Adverse event flag</div>
+    </div>
+    <div class="cell">
+      <div style="margin-top:8px;font-size:13px;color:var(--rmkr-white);font-weight:600;">No weight loss</div>
+      <div style="font-size:11px;color:var(--rmkr-cyan);margin-top:2px;">~38% of negative reviews</div>
+      <div style="margin-top:14px;font-size:11px;color:var(--rmkr-pale);">Mild AEs only. Trust signals: ingredient transparency, manufacturing origin.</div>
+    </div>
+    <div class="cell">
+      <div style="margin-top:8px;font-size:13px;color:var(--rmkr-white);font-weight:600;">Doesn't work + adverse events</div>
+      <div style="font-size:11px;color:var(--rmkr-cyan);margin-top:2px;">~32% no efficacy · ~18% AEs</div>
+      <div style="margin-top:14px;font-size:11px;color:var(--rmkr-pale);"><strong style="color:var(--rmkr-cyan);">DIM cluster:</strong> liver enzyme spikes, ER visits, allergic reactions.</div>
+    </div>
+    <div class="cell">
+      <div style="margin-top:8px;font-size:13px;color:var(--rmkr-white);font-weight:600;">"Snake oil" + weight gain</div>
+      <div style="font-size:11px;color:var(--rmkr-cyan);margin-top:2px;">~45% no efficacy · ~12% weight GAIN</div>
+      <div style="margin-top:14px;font-size:11px;color:var(--rmkr-pale);"><strong style="color:var(--rmkr-cyan);">Category-level credibility collapse</strong> on "GLP-1" naming.</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ROW 07 — INNOVATION / ACUTE SIGNALS
+       ============================================ -->
+  <div class="data-row">
+    <div class="row-label">
+      <div class="row-num">07</div>
+      <div class="row-title">Innovation Signals</div>
+      <div class="row-desc">Lane · acute term · risk</div>
+    </div>
+    <div class="cell">
+      <div style="margin-top:6px;font-size:9px;color:var(--rmkr-cyan);font-weight:600;letter-spacing:0.14em;">LANE</div>
+      <div style="font-size:12px;color:var(--rmkr-white);margin-top:3px;line-height:1.3;">Meno-belly + perimenopause bloat, HRT-adjacent</div>
+      <div style="margin-top:10px;font-size:9px;color:var(--rmkr-cyan);font-weight:600;letter-spacing:0.14em;">ACUTE TERM</div>
+      <div style="font-size:11px;color:var(--rmkr-pale);margin-top:3px;">"perimenopause bloating relief" · 688 SV</div>
+    </div>
+    <div class="cell">
+      <div style="margin-top:6px;font-size:9px;color:var(--rmkr-cyan);font-weight:600;letter-spacing:0.14em;">LANE</div>
+      <div style="font-size:12px;color:var(--rmkr-white);margin-top:3px;line-height:1.3;">Clean-label hormone-balance with transparent ingredient story</div>
+      <div style="margin-top:10px;font-size:9px;color:var(--rmkr-cyan);font-weight:600;letter-spacing:0.14em;">ACUTE TERM</div>
+      <div style="font-size:11px;color:var(--rmkr-pale);margin-top:3px;">"hot flashes menopause relief" · 4.3k SV</div>
+    </div>
+    <div class="cell">
+      <div style="margin-top:6px;font-size:9px;color:var(--rmkr-cyan);font-weight:600;letter-spacing:0.14em;">LANE</div>
+      <div style="font-size:12px;color:var(--rmkr-white);margin-top:3px;line-height:1.3;">Gut-microbiome satiety support, decoupled from "GLP-1" claim</div>
+      <div style="margin-top:10px;font-size:9px;color:var(--rmkr-cyan);font-weight:600;letter-spacing:0.14em;">ACUTE TERM</div>
+      <div style="font-size:11px;color:var(--rmkr-pale);margin-top:3px;">"appetite suppressant" · 141.6k SV</div>
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       VERDICT ROW — full width
+       ============================================ -->
+  <div class="verdict-row">
+    <div class="row-label">
+      <div class="row-num">08</div>
+      <div class="row-title">Cross-Segment Verdict</div>
+      <div class="row-desc">Where the best wedge lives · recommended sequencing</div>
+    </div>
+    <div class="verdict-cell">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.18em;color:var(--rmkr-cyan);text-transform:uppercase;margin-bottom:8px;">Best near-term wedge</div>
+          <div style="font-size:22px;font-weight:700;color:var(--rmkr-white);">GLP-1 Weight Loss</div>
+          <div style="margin-top:10px;font-size:12px;color:var(--rmkr-pale);line-height:1.5;">Massive demand (1.77M SV), softest review wall (0% rev behind 5k+), 95% of revenue from 2025+ launches. The wall isn't built yet.</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.18em;color:var(--rmkr-cyan);text-transform:uppercase;margin-bottom:8px;">Largest scale opportunity</div>
+          <div style="font-size:22px;font-weight:700;color:var(--rmkr-white);">Menopause Support</div>
+          <div style="margin-top:10px;font-size:12px;color:var(--rmkr-pale);line-height:1.5;">$233M TAM, $87/search monetization, premium tolerated to $80+. But review-locked: 73% of revenue behind 5k+ wall. A safety/transparency play has the cleanest opening.</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.18em;color:var(--rmkr-cyan);text-transform:uppercase;margin-bottom:8px;">Sequencing recommendation</div>
+          <div style="font-size:22px;font-weight:700;color:var(--rmkr-white);">Lead GLP-1, then Support</div>
+          <div style="margin-top:10px;font-size:12px;color:var(--rmkr-pale);line-height:1.5;">Enter GLP-1 with honest positioning to win share before the moat hardens. Build review momentum, then expand into Support with proven trust signals. Skip MWL — Estroven-locked, low rev/search.</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--rmkr-border-soft);font-size:11px;color:var(--rmkr-muted);font-style:italic;line-height:1.5;">
+        <strong style="color:var(--rmkr-cyan);font-style:normal;letter-spacing:0.1em;">READ-THROUGH</strong> &nbsp; The dominant signal across all three segments is that incumbent trust is breaking faster than incumbent share. GLP-1 is structurally open right now; Menopause Support has a credibility gap a transparent operator can walk through.
+      </div>
+    </div>
+  </div>
+
+  <!-- placeholder hint at the bottom -->
+  <div class="placeholder-hint">
+    <strong>POPULATED · v1</strong> · All segment KPIs, semantic buckets, trend scores, cohort breakdowns, value curves, top competitors, sentiment, and innovation signals computed from source data. Sparklines built from full-date-range weekly SV. Sentiment themes drawn from the 337-review scrape. Numbers can be pressure-tested against the source workbook.
+  </div>
+
+  <div class="foot">
+    <div>Master Analysis Canvas</div>
+    <div>Phase II · v1</div>
+  </div>
+
+</div>
+
+
+</body></html>
